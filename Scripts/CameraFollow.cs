@@ -6,7 +6,7 @@ public class CameraFollow : MonoBehaviour {
     [SerializeField] private Transform ballTransform;
 
     private readonly Vector3 _cameraOffset = new Vector3(5,3,-10);
-    private const float SmoothSpeed = 0.8f;
+    private const float SmoothSpeed = 0.5f;
     private const float LookForwardOffset = 5;
 
     private void FixedUpdate() {

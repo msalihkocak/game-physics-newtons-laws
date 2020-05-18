@@ -4,16 +4,27 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class BallPhysics : MonoBehaviour {
-  [SerializeField] private float mass = 1;
+public class PhysicsController : MonoBehaviour {
+  [SerializeField] private float mass; // [kg]
+  [SerializeField] private Vector3 velocity; // [m/s]
+  [SerializeField] private Vector3 netForce; // [m/s]
   [SerializeField] private bool showForceLines = true;
-  [SerializeField] private Vector3 velocity;
 
   private List<Vector3> _forces;
 
   private LineRenderer _lineRenderer;
 
-  private void Start() {
+  public float Mass {
+    get => mass;
+    set => mass = value;
+  }
+
+  public Vector3 Velocity {
+    get => velocity;
+    set => velocity = value;
+  }
+
+  private void Awake() {
     _forces = new List<Vector3>();
     SetLineRenderDefaultParams(Color.yellow, 0.2f);
   }
@@ -34,7 +45,7 @@ public class BallPhysics : MonoBehaviour {
   }
 
   private void UpdatePosition() {
-    var netForce = CalculateNetForce();
+    netForce = CalculateNetForce();
     var acceleration = netForce / mass;
     velocity += acceleration * Time.deltaTime;
     transform.position += velocity * Time.deltaTime;
